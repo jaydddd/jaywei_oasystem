@@ -1,0 +1,26 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <mapper namespace="com.qianfeng.oa.user">
+    <resultMap id="oa_user" type="com.qianfeng.oa.dto.OaUserDTO">
+         <id property="userId" column="user_id" javaType="java.lang.Integer"/>
+        <result property="userPhone" column="user_phone" javaType="java.lang.String"/>
+        <result property="userName" column="user_name" javaType="java.lang.String"/>
+        <result property="userPassword" column="user_password" javaType="java.lang.String"/>
+        <result property="userSale" column="user_sale" javaType="java.lang.String"/>
+    </resultMap>
+    <!--查询手机号是否存在-->
+    <select id="user_phone" resultMap="oa_user" >
+        SELECT user_phone,user_name,user_password FROM oa_user
+        <trim prefix="WHERE" prefixOverrides="AND |OR">
+         <if test="_parameter!= null">
+             AND  user_phone=#{userPhone}
+         </if>
+
+        </trim>
+    </select>
+
+
+
+
+</mapper>
