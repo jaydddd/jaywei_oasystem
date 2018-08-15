@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import java.util.Random;
  * Created by admin on 2018/5/12.
  */
 @Controller
-@RequestMapping("user/")
+@RequestMapping("/user")
 public class OaUserController {
 
     @Autowired
@@ -30,16 +31,21 @@ public class OaUserController {
 
     private static final Random rand=new Random();
 
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login",method = {RequestMethod.GET,RequestMethod.POST})
     @ResponseBody
     public String getUserLogin(String userPhone, String userPassword, HttpSession session,String index,HttpServletRequest req){
 
 
-
+        boolean userPhone1=false;
+        HttpSession httpSession=null;
+        OaUserDTO userPhone2=null;
         try{
-        boolean userPhone1 = userService.getUserPhone(userPhone, userPassword);
-        OaUserDTO userPhone2 = oauser.getUserPhone(userPhone);
-            HttpSession httpSession = LoginListener.map.get(userPhone2.getUserName());
+            if(userPhone!=null&&userPhone!=""&&userPassword!=null&&userPassword!=""){
+                userPhone1 = userService.getUserPhone(userPhone, userPassword);
+                 userPhone2 = oauser.getUserPhone(userPhone);
+                httpSession = LoginListener.map.get(userPhone2.getUserName());
+            }
+
 
             System.out.println(session.toString());
 

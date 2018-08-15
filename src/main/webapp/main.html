@@ -17,6 +17,17 @@
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script>
+/*离开页面就运行这段*/
+        window.onbeforeunload = function()
+        {
+//  这是用来设定一个时间, 时间到了, 就会执行一个指定的 method。
+            var index="pc";
+
+            $.get("/user/login",{index:index});
+
+
+        }
+
         window.addEventListener("beforeunload", function(event) {
             var hidden=$("#hidden").val();
 
